@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>생성자를 이용한 객체 생성</title>
+</head>
+<body>
+
+</body>
+<script>
+//생성자와 일반 함수의 차이점은 this를 사용한다는 점입니다.
+var Person = function(name,age){
+	this.name = name
+	this.age = age
+}
+//객체생성
+var p1 = new Person("배유나",31)
+console.log(p1)
+
+Object.prototype.display = function(){
+	console.log("모든 객체에게 상속됩니다.")
+}
+//p1은 원래 display 가 없었지만 Object에 display가 추가되서
+//p1에도 추가 됩니다.	
+p1.display()
+
+/*
+//문자열의 모든 공백을 제거하고 출력
+var str ="  Hello world  "
+var result = ""
+for(var i=0; i<str.length; i=i+1){
+	var ch = str.charAt(i)
+	if(ch != " "){
+		result = result + ch
+	}
+}
+console.log(result)
+*/
+
+var ar1 =[10,78,6,35]
+var ar2 =["배유나","고예림","문정원","박정아"]
+var ar3 =[new Date(1970,6,29), new Date(1972,5,8)]
+//자바스크립트에서 숫자도 문자열 형태로 비교해서 정렬 - radix sort
+//첫번째 자리부터 데이터를 하나씩 꺼내서 비교한 후 정렬
+//위에 것 문자 6으로 봐서 10 35 6 78로 정렬 됨. 먼저 앞자리 숫자를 비교
+console.log(ar1.sort())
+console.log(ar2.sort())
+console.log(ar3.sort())
+//원하는 형태로 정렬을 하고자 하면
+//매개변수가 2개이고 정수를 리턴하는 함수를 매개변수로 대입하면 된다.
+//이 함수를 이용해서 원하는 형태로 정렬을 할 수 가 있다.
+// 첫번째 매개변수가 두번째 매개변수보다 클 때 양수
+//같을 때 0, 작을 때는 음수를 리턴하면 오름차순 정렬이 된다.
+
+console.log(ar1.sort(function(left,right){
+	return left - right
+}))
+
+//ar2의 배열을 내림차순 정렬
+//문자열은 크기 비굘르 해서 정수를 리턴하는 방법을 이용
+console.log(ar2.sort(function(left,right){
+	if(left<right){
+		return 1
+	}else{
+		return -1
+	}
+}))
+
+var GDP = function(name,money){
+	this.name=name
+	this.money =money
+
+}
+var nations = [
+	new GDP("korea",30000), 
+	new GDP("china",15000),
+	new GDP("japan",20000),
+	new GDP("usa",50000),
+	new GDP("cannada",9000)]
+//기본 자료형이 아니고 객체인 경우는 어떤 값을 가지고 비교할 것인지 sort 메소드에 
+//알려 주어야 합니다.	
+console.log(nations.sort(
+		function(left,right){
+			return left.money - right.money
+		}
+		))
+//nations 배열에서 money 값이 40000이 넘는 데이터만 추출
+//함수의 매개변수로 2개 추가가 가능한 데 추가한 첫번째 매개변수는
+//데이터의 인덱스이고 두번째 매개변수는 배열
+
+console.log(nations.filter(function(data){
+	return data.money > 40000
+}))
+
+
+
+</script>
+
+
+</html>
